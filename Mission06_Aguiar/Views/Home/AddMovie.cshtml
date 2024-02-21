@@ -1,4 +1,4 @@
-﻿@model Application
+﻿@model Movie
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,8 +9,16 @@
 <h1>Add a Movie</h1>
 <br />
 <form method="post">
-    <label asp-for="Category">Category: </label>
-    <input asp-for="Category"/>
+    <input type="hidden" asp-for="MovieId" />
+
+    <label asp-for="CategoryId">Category: </label>
+    <select asp-for="CategoryId">
+        <option value="">Select a category</option>
+        @foreach (Category c in ViewBag.Categories)
+        {
+            <option value="@c.CategoryId">@c.CategoryName</option>
+        }
+    </select>
     <br />
     <br />
     <label asp-for="Title">Title: </label>
@@ -45,11 +53,21 @@
     <input asp-for="LentTo"/>
     <br />
     <br />
+    <label asp-for="CopiedToPlex">Copied to Plex?</label>
+    <select asp-for="CopiedToPlex">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br />
+    <br />
     <label asp-for="Notes">Notes: </label>
     <input asp-for="Notes"/>
     <br />
     <br />
     <br />
     <button type="submit">Submit Movie</button>
+    <br />
+
+    <div asp-validation-summary="All"></div>
 
 </form>
